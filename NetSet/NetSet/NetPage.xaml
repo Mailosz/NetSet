@@ -1,0 +1,173 @@
+﻿<Page x:Class="NetSet.NetPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:NetSet"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="400"
+      Title="NetPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MinWidth="10" Width="*"/>
+            <ColumnDefinition MinWidth="10" Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="leftGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition MinHeight="128"/>
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <Expander x:Name="ipv4Expander" Header="Szczegóły IPv4" IsExpanded="True">
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="ipv4TextBlock" Padding="5" TextAlignment="Right" FontFamily="Square721 Cn BT" FontSize="14">Adres:</TextBlock>
+                    <StackPanel x:Name="ipv4Panel" Grid.Column="1">
+
+                    </StackPanel>
+                </Grid>
+                <Grid x:Name="ipv4MaskGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Padding="5" TextAlignment="Right" FontFamily="Square721 Cn BT" FontSize="14">Maska:</TextBlock>
+                    <TextBlock x:Name="maskBlock" Grid.Column="1" Padding="5" FontFamily="Square721 Cn BT" FontSize="14"/>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Padding="5" TextAlignment="Right" FontFamily="Square721 Cn BT" FontSize="14">Bramy:</TextBlock>
+                    <WrapPanel x:Name="gateStack" Grid.Column="1">
+
+                    </WrapPanel>
+                </Grid>
+                <Line Margin="10,5" Stroke="#7F808080" X2="1" Stretch="Fill"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Padding="5" TextAlignment="Right" FontFamily="Square721 Cn BT" FontSize="14">DNS:</TextBlock>
+                    <!--<TextBlock x:Name="dnsBlock" Grid.Column="1" Padding="5" FontFamily="Square721 Cn BT" FontSize="14"/>-->
+                    <WrapPanel x:Name="dnsWrap" Grid.Column="1">
+
+                    </WrapPanel>
+                </Grid>
+            </StackPanel>
+            </Expander>
+                <Expander  x:Name="ipv6Expander" Header="Szczegóły IPv6">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Padding="5" TextAlignment="Right" FontFamily="Square721 Cn BT" FontSize="14">Adres:</TextBlock>
+                            <WrapPanel x:Name="ipv6Panel" Grid.Column="1">
+
+                            </WrapPanel>
+                        </Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Padding="5" TextAlignment="Right" FontFamily="Square721 Cn BT" FontSize="14">Bramy:</TextBlock>
+                            <WrapPanel x:Name="ipv6GatesPanel" Grid.Column="1">
+
+                            </WrapPanel>
+                        </Grid>
+                    </StackPanel>
+                </Expander>
+            </StackPanel>
+            <!-- Dolna część-->
+            <ListView x:Name="listView" Margin="0,0,6,40" Grid.Row="1" FontSize="14" SelectionMode="Single">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Nazwa" Width="112" DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="IP" Width="112" DisplayMemberBinding="{Binding Address}"/>
+                        <GridViewColumn Header="Maska" Width="112" DisplayMemberBinding="{Binding Mask}"/>
+                        <GridViewColumn Header="Brama" Width="112" DisplayMemberBinding="{Binding Gate}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <Button x:Name="autoIPButton" Content="Automatycznie" HorizontalAlignment="Left" Margin="0,0,0,5" Grid.Row="1" VerticalAlignment="Bottom" Padding="1,2,1,5" Click="autoIPButton_Click" Height="30"/>
+            <Button x:Name="addButton" Content="Dodaj" HorizontalAlignment="Right" Margin="0,0,6,5" Grid.Row="1" VerticalAlignment="Bottom" Width="75" Padding="1,2,1,5" Click="addButton_Click" Height="30"/>
+
+        </Grid>
+        <GridSplitter ShowsPreview="True" Width="6" ResizeDirection="Columns" ResizeBehavior="CurrentAndNext"/>
+        <!-- prawa strona -->
+        <Grid x:Name="rightGrid" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition MinHeight="10" Height="*"/>
+                <RowDefinition MinHeight="10" Height="*"/>
+            </Grid.RowDefinitions>
+            <GridSplitter Height="6" Panel.ZIndex="10" ShowsPreview="True" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" ResizeBehavior="CurrentAndNext" ResizeDirection="Rows" />
+            <TextBlock FontSize="14" TextAlignment="Right" Padding="0,6,10,6">
+                <Hyperlink x:Name="propertiesLink" Click="propertiesLink_Click" >Właściwości karty</Hyperlink>
+            </TextBlock>
+            <ListBox x:Name="pingList" Margin="0,32,0,6" HorizontalContentAlignment="Stretch">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="*" MinWidth="32"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="addPingBox" FontSize="16" Padding="2" FontFamily="Square721 Cn BT" KeyDown="addPingBox_KeyDown"/>
+                    <Button x:Name="pingButton" Grid.Column="1" Background="#FFC5FFC5" Click="pingButton_Click">Pinguj</Button>
+                </Grid>
+            </ListBox>
+            <!-- Dolna część-->
+
+            <Button x:Name="dhcpButton" HorizontalAlignment="Right" Margin="69,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="123" Height="49" Click="dhcpButton_Click" ToolTip="DHCP Server wymaga uprawnień administratora.&#10;Jeżeli po kliknięciu przycisku serwer nie włącza się spróbuj uruchomić NetSet jako Administrator.&#10;Inną możliwą przyczyną jest zablokowany, lub zajęty port numer 67 (np. przez inny działający serwer DHCP)." Background="#FFDDDDDD">
+                <Grid>
+                    <Rectangle x:Name="dhcpStatus" Margin="0,0,18,0" Fill="#FFE00000" HorizontalAlignment="Center" Height="16"  Stroke="#FF600000" VerticalAlignment="Top" Width="16" RadiusX="32" RadiusY="32" StrokeThickness="2"/>
+                    <TextBlock x:Name="dhcpOnOff" Margin="18,0,0,0" HorizontalAlignment="Center" Text="Off" VerticalAlignment="Top"/>
+                    <TextBlock Margin="0,16,0,0" FontSize="16">DHCP Server</TextBlock>
+                </Grid>
+            </Button>
+            <ListView x:Name="siteView" Margin="0,64,0,5" Grid.Row="1" FontSize="14" ContextMenuOpening="siteView_ContextMenuOpening">
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem x:Name="openInBrowserButton" Header="Otwórz w przeglądarce" Click="openInBrowserButton_Click"/>
+                        <MenuItem x:Name="pingAddressButton" Header="Pinguj adres" Click="pingAddressButton_Click"/>
+                        <MenuItem x:Name="scanPortButtonButton" Header="Skanuj porty" Click="scanPortButtonButton_Click"/>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Nazwa" Width="96" DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="IP" Width="116" DisplayMemberBinding="{Binding Address}"/>
+                        <GridViewColumn Header="Czas" Width="80" DisplayMemberBinding="{Binding Time}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <Button x:Name="checkButton" HorizontalAlignment="Left" Margin="0,5,0,0" Width="64" Grid.Row="1" VerticalAlignment="Top" Padding="2,6" Click="checkButton_Click" Height="49">
+                <StackPanel>
+                    <TextBlock x:Name="checkTextBlock" TextAlignment="Center">Szukaj</TextBlock>
+                    <ProgressBar x:Name="checkProgress" Width="60" Visibility="Collapsed" Height="8" IsIndeterminate="True"/>
+                </StackPanel>
+            </Button>
+            <TextBlock x:Name="textBlock" Text="textt" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="74,12,0,0"/>
+            
+        </Grid>
+
+        <Border x:Name="noNetDeviceAlert" IsEnabled="true" Visibility="Hidden" Grid.ColumnSpan="4" Grid.RowSpan="4" Panel.ZIndex="1000" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFD6D6D6" MinWidth="320" MinHeight="256" BorderBrush="#FF6E6E6E" BorderThickness="1">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="16">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0" FontSize="36" TextWrapping="Wrap" TextAlignment="Center">Nie znaleziono urządzenia</TextBlock>
+                <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center">Urządzenie może być wyłączone. Włącz urządzenie i spróbuj ponownie.</TextBlock>
+                <Button x:Name="retryButton" Padding="20,12" FontSize="24" Margin="16" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="True" Click="retryButton_Click">Sprawdź</Button>
+            </StackPanel>
+            
+        </Border>
+    </Grid>
+</Page>

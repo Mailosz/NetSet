@@ -1,0 +1,28 @@
+﻿<UserControl x:Class="NetSet.PingBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NetSet"
+             mc:Ignorable="d" 
+             d:DesignHeight="24" d:DesignWidth="300">
+    <UserControl.ContextMenu>
+        <ContextMenu>
+            <MenuItem x:Name="browserItem" Header="Otwórz w przeglądarce" Click="browserItem_Click"/>
+            <MenuItem x:Name="portItem" Header="Skanuj porty" Click="portItem_Click"/>
+            <MenuItem x:Name="deleteItem" Header="Przestań pingować" Click="deleteItem_Click"/>
+        </ContextMenu>
+    </UserControl.ContextMenu>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" MinWidth="128"/>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" MinWidth="40"/>
+            <ColumnDefinition Width="24" MinWidth="24"/>
+        </Grid.ColumnDefinitions>
+        <Polygon x:Name="polygon" Grid.Column="1" Height="24" Fill="#7F40E0FF" Stroke="#FF00C0FF" Stretch="Fill" VerticalAlignment="Bottom"/>
+        <TextBlock x:Name="ipBlock" FontFamily="Square721 Cn BT" FontSize="14" Margin="0,5"/>
+        <TextBlock x:Name="timeBlock" FontFamily="Square721 Cn BT" FontSize="14" Margin="0,5" Grid.Column="2" Text="Oczekiwanie" HorizontalAlignment="Right"/>
+        <Rectangle x:Name="statusIndicator" Grid.Column="3" Fill="Silver" HorizontalAlignment="Center" Height="12" Stroke="Gray" VerticalAlignment="Center" Width="12" RadiusX="32" RadiusY="32" StrokeThickness="2"/>
+    </Grid>
+</UserControl>

@@ -1,0 +1,64 @@
+﻿<Window x:Class="NetSet.SetWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NetSet"
+        mc:Ignorable="d"
+        MinWidth="256"
+        MinHeight="320"
+        Title="Ustaw adres" Height="400" Width="320" WindowStartupLocation="CenterOwner">
+    <Grid>
+        <TabControl Margin="0,32,0,0">
+            <TabItem Header="Ogólne">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,0,48">
+                <StackPanel>
+                    <Grid ToolTip="Adres tego urządzenia w sieci.&#10; Możesz wprowadzić wiele wartości oddzielając je średnikiem ( ; ).">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="64"/>
+                            <ColumnDefinition Width="*"/>
+
+                            </Grid.ColumnDefinitions>
+                        <TextBlock Padding="5" TextAlignment="Right" FontFamily="Square721 Cn BT" FontSize="16">Adres:</TextBlock>
+                        <TextBox x:Name="ipBox" Grid.Column="1" Padding="4" FontFamily="Square721 Cn BT" FontSize="16" LostFocus="ipv4Box_LostFocus" MaxLines="16" VerticalAlignment="Top" AcceptsReturn="True"/>
+                    </Grid>
+                    <Grid ToolTip="Maska podsieci.&#10; Możesz wprowadzić wiele wartości oddzielając je średnikiem ( ; ).">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="64"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Padding="5" TextAlignment="Right" FontFamily="Square721 Cn BT" FontSize="16">Maska:</TextBlock>
+                        <TextBox x:Name="maskBox" Grid.Column="1" Padding="4" FontFamily="Square721 Cn BT" FontSize="16" LostFocus="maskBox_LostFocus" Text="255.255.255.0"/>
+                    </Grid>
+                    <Grid ToolTip="Brama domyślna, czyli adres routera z który służy do połączenia z innymi sieciami. &#10; Możesz wprowadzić wiele wartości oddzielając je średnikiem ( ; ).">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="64"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Padding="5" TextAlignment="Right" FontFamily="Square721 Cn BT" FontSize="16">Brama:</TextBlock>
+                            <TextBox x:Name="gateBox" Grid.Column="1" Padding="4" FontFamily="Square721 Cn BT" FontSize="16" LostFocus="gateBox_LostFocus" TextChanged="multiBox_TextChanged"/>
+                    </Grid>
+                    <Line Margin="10,5,10,0" Stroke="#7F808080" X2="1" Stretch="Fill"/>
+                        <CheckBox x:Name="dnsCheckbox" ToolTip="Jeśli zaznaczone, to ta konfiguracja zawiera serwery DNS.&#10;Inaczej adresy serwerów DNS nie będą zmieniane przy wyborze tej konfiguracji." FontSize="16" Margin="40,0,0,0" Content="Zmieniaj ustawienia DNS" VerticalContentAlignment="Center" Padding="8" Checked="dnsCheckbox_Checked" Unchecked="dnsCheckbox_Unchecked"/>
+                        <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="64"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Padding="5" TextAlignment="Right" FontFamily="Square721 Cn BT" FontSize="16">DNS:</TextBlock>
+                            <StackPanel Grid.Column="1" x:Name="dnsList">
+                                <TextBox x:Name="dnsBox" Grid.Column="1" Padding="4" FontFamily="Square721 Cn BT" FontSize="16" TextChanged="multiBox_TextChanged" LostFocus="dnsBox_LostFocus"/>
+                            </StackPanel>
+                        </Grid>
+                </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="WINS">
+                <TextBlock TextWrapping="Wrap" Padding="8" VerticalAlignment="Top">WINS to odpowiednik usługi DNS w systemach Windows. Umożliwia zamianę nazwy komputera na adres IP. </TextBlock>
+            </TabItem>
+        </TabControl>
+        <Button x:Name="submitButton" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,64,8" Content="Zapisz" SnapsToDevicePixels="True" Padding="12,8" Background="#FFB5FF9A" IsDefault="True" Click="submitButton_Click"/>
+        <Button x:Name="closeButton" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="64,0,0,8" Content="Anuluj" SnapsToDevicePixels="True" Padding="12,8" Background="#FFFF9A9A" IsCancel="True" Click="closeButton_Click"/>
+        <TextBox x:Name="nameBox" Height="28" Margin="0" FontSize="16" TextWrapping="Wrap" VerticalAlignment="Top" Padding="4,2" Text="Wzór"/>
+    </Grid>
+</Window>
